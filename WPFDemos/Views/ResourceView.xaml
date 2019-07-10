@@ -1,0 +1,51 @@
+﻿<Window x:Class="WPFDemos.Views.ResourceView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPFDemos.Views"
+        mc:Ignorable="d"
+        Title="Resource" Height="450" Width="800">
+    
+     
+    <Window.DataContext>
+        <Binding Source="{StaticResource Locator}" Path="ResourceView"></Binding>
+    </Window.DataContext>
+
+    <Window.Resources>
+        <Style x:Key="btnBorder" TargetType="Button">
+            <Setter Property="BorderThickness" Value="4"/>
+            <Setter Property="BorderBrush" Value="Blue" />
+        </Style>
+    </Window.Resources>
+    
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Margin="100 0 100 0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Margin="0 0 0 10" FontSize="15" Text="button style resource" TextAlignment="Center"/>
+
+            <TextBlock Grid.Row="1" Text="staticResource:"/>
+            <TextBlock Grid.Row="2" Text="dynamicResource:"/>
+            <Button Grid.Row="1" Grid.Column="1" Style="{StaticResource btnBorder}" Content="button1"/>
+            <Button Grid.Row="2" Grid.Column="1" Style="{DynamicResource btnBorder}" Content="button2"/>
+            <Button Grid.Row="3" Grid.ColumnSpan="2" Width="100" Margin="5" Content="update resource"
+                    Command="{Binding UpdateResourceCommand}"
+                    />
+        </Grid>
+    </Grid>
+</Window>

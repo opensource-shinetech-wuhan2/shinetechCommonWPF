@@ -1,0 +1,50 @@
+﻿<Window x:Class="WPFDemos.Views.CustomControlView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPFDemos.ViewModel"
+        xmlns:cc="clr-namespace:WPFDemos.CustomControl"
+        xmlns:pager="clr-namespace:WPFDemos.CustomControl.Pager"
+        mc:Ignorable="d"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:command="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Platform"
+        Title="CustomControlView" Height="600" Width="800" Activated="Window_Activated">
+    <Window.DataContext>
+        <Binding Source="{StaticResource Locator}" Path="CustomControlView"></Binding>
+    </Window.DataContext>
+    <Grid >
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <WrapPanel Grid.Row="0">
+            <cc:CustomDemo LinkWith="{Binding ElementName=job}"/>
+            <TextBox Name="job" Text="fsdfs" Width="200"/>
+        </WrapPanel>
+
+        <cc:NumericTextBox Grid.Row="1" Text="{Binding Value}" />
+
+        <DataGrid Grid.Row="2" ItemsSource="{Binding Datas}" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Id" Width="*" Binding="{Binding Path=Id}"/>
+                <DataGridTextColumn Header="Name" Width="*" Binding="{Binding Path=Name}">
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Age" Width="*" Binding="{Binding Path=Age}"/>
+                <DataGridTextColumn Header="Job" Width="*" Binding="{Binding Path=Job}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <pager:DataPager x:Name="pager1" Grid.Row="3" Total="{Binding Total}" NumericButtonCount="5">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="PageChanged">
+                    <command:EventToCommand Command="{Binding PageChangeCommand}" PassEventArgsToCommand="True" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </pager:DataPager>
+
+    </Grid>
+</Window>

@@ -1,0 +1,45 @@
+﻿<Window x:Class="WPFDemos.Views.ValidationView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:validationRules="clr-namespace:WPFDemos.Common.ValidationRules"
+        xmlns:local="clr-namespace:WPFDemos.Views"
+        mc:Ignorable="d"
+        Title="ValidationView" Height="450" Width="800">
+    <Window.DataContext>
+        <Binding Source="{StaticResource Locator}" Path="ValidationView"></Binding>
+    </Window.DataContext>
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Column="0" Grid.Row="0" Text="Name:" />
+        <TextBox Grid.Column="1" Grid.Row="0" Style="{StaticResource ResourceKey=BasicTextBoxStyle}" Text="{Binding Person.Name}"/>
+
+        <TextBlock Grid.Column="0" Grid.Row="1" Text="Phone:"/>
+        <TextBox Grid.Column="1" Grid.Row="1" Style="{StaticResource ResourceKey=BasicTextBoxStyle}" Text="{Binding Person.Phone}">
+            <!--<TextBox.Text>
+                <Binding Path="Phone" UpdateSourceTrigger="PropertyChanged" ValidatesOnDataErrors="True">
+                    <Binding.ValidationRules>
+                        <validationRules:RequiredRule/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>-->
+        </TextBox>
+
+        <TextBlock Grid.Column="0" Grid.Row="2" Text="Eamil:" />
+        <TextBox Grid.Column="1" Grid.Row="2" Style="{StaticResource ResourceKey=BasicTextBoxStyle}" Text="{Binding Person.Email}"/>
+
+        <Button Grid.ColumnSpan="2" Grid.Row="3" Width="100" Height="30" Content="save" Command="{Binding SaveCommand}" Style="{StaticResource BasicButtonStyle}"/>
+    </Grid>
+</Window>

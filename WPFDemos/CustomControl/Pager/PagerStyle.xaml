@@ -1,0 +1,70 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:WPFDemos.CustomControl.Pager"
+                    >
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="PagerIndexButton.xaml" />
+        <ResourceDictionary Source="ImageButton.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+    
+    <Style TargetType="{x:Type local:DataPager}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:DataPager}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Margin="0" Orientation="Horizontal">
+                            <TextBlock Text=" total: " Margin="0" VerticalAlignment="Center" />
+                            <TextBlock Name="PART_Count" Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:DataPager}, Path=Total}" HorizontalAlignment="Stretch" VerticalAlignment="Center" Foreground="#FF056DAE"/>
+                                                     
+                            <TextBlock Text=" current page: " Margin="0" VerticalAlignment="Center" />
+                            <TextBlock Name="PART_PageIndex" Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:DataPager}, Path=PageIndex}" HorizontalAlignment="Stretch" VerticalAlignment="Center" Foreground="#FF056DAE"/>
+
+                            <TextBlock Text=" page size: " VerticalAlignment="Center"/>
+                            <ComboBox x:Name="PART_PageSize" VerticalAlignment="Center">
+                                <ComboBoxItem IsSelected="True">10</ComboBoxItem>
+                                <ComboBoxItem>20</ComboBoxItem>
+                                <ComboBoxItem>30</ComboBoxItem>
+                                <ComboBoxItem>40</ComboBoxItem>
+                                <ComboBoxItem>50</ComboBoxItem>
+                            </ComboBox>
+                        </StackPanel>
+
+                        <Border BorderBrush="Black" Grid.Column="1" Margin="0" HorizontalAlignment="Right">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="20"/>
+                                    <ColumnDefinition Width="20"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="20"/>
+                                    <ColumnDefinition Width="20"/>
+                                </Grid.ColumnDefinitions>
+
+                                 
+                                
+                                <!-- fristpage button -->
+                                <local:ImageButton Grid.Column="1" x:Name="PART_Firstpage" Source="../../Images/page_first.png"/>
+                                <!--prev button-->
+                                <local:ImageButton Grid.Column="2" x:Name="PART_Previouspage" Source="../../Images/prev.png"/>
+
+                                <Border Grid.Column="3" HorizontalAlignment="Stretch" Height="Auto" VerticalAlignment="Stretch" Width="Auto">
+                                    <StackPanel x:Name="PART_Content" Orientation="Horizontal"></StackPanel>
+                                </Border>
+
+                                <!--next button-->
+                                <local:ImageButton Grid.Column="4" x:Name="PART_Nextpage" Source="../../Images/next.png"/>
+                                <!-- lastpage button -->
+                                <local:ImageButton Grid.Column="5" x:Name="PART_Lastpage" Source="../../Images/page_last.png"/>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>
