@@ -14,6 +14,7 @@
 
 using CommonServiceLocator;
 using GalaSoft.MvvmLight.Ioc;
+using WPFDemos.ViewModel.Demo;
 
 namespace WPFDemos.ViewModel
 {
@@ -40,7 +41,7 @@ namespace WPFDemos.ViewModel
             ////    // Create run time view services and models
             ////    SimpleIoc.Default.Register<IDataService, DataService>();
             ////}
-
+            
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<DemoViewModel>();
             SimpleIoc.Default.Register<SwitchDataContextViewModel>();

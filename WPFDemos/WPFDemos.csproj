@@ -84,6 +84,7 @@
       <HintPath>..\packages\Ninject.3.3.4\lib\net45\Ninject.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
@@ -115,6 +116,7 @@
     <Compile Include="Converters\NameConverter.cs" />
     <Compile Include="Converters\TimeConverter.cs" />
     <Compile Include="CustomControl\CustomDemo.cs" />
+    <Compile Include="CustomControl\ExDataGrid.cs" />
     <Compile Include="CustomControl\Pager\ImageButton.cs" />
     <Compile Include="CustomControl\NumericTextBox.cs" />
     <Compile Include="CustomControl\Pager\PagerIndexButton.cs" />
@@ -138,50 +140,50 @@
       <DependentUpon>PeopleControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Common\ValidationRules\RequiredRule.cs" />
-    <Compile Include="ViewModel\BindingViewModel.cs" />
-    <Compile Include="ViewModel\ControlTemplateViewModel.cs" />
-    <Compile Include="ViewModel\ConverterViewModelcs.cs" />
-    <Compile Include="ViewModel\CustomControlViewModel.cs" />
-    <Compile Include="ViewModel\PdfViewerViewModel.cs" />
-    <Compile Include="ViewModel\TreeViewViewModel.cs" />
-    <Compile Include="ViewModel\ValidationViewModel.cs" />
-    <Compile Include="Views\CustomControlView.xaml.cs">
+    <Compile Include="ViewModel\Demo\BindingViewModel.cs" />
+    <Compile Include="ViewModel\Demo\ControlTemplateViewModel.cs" />
+    <Compile Include="ViewModel\Demo\ConverterViewModelcs.cs" />
+    <Compile Include="ViewModel\Demo\CustomControlViewModel.cs" />
+    <Compile Include="ViewModel\Demo\PdfViewerViewModel.cs" />
+    <Compile Include="ViewModel\Demo\TreeViewViewModel.cs" />
+    <Compile Include="ViewModel\Demo\ValidationViewModel.cs" />
+    <Compile Include="Views\Demo\CustomControlView.xaml.cs">
       <DependentUpon>CustomControlView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModel\DataTemplateViewModel.cs" />
-    <Compile Include="ViewModel\DemoViewModel.cs" />
-    <Compile Include="ViewModel\MainViewModel.cs" />
-    <Compile Include="ViewModel\ResourceViewModel.cs" />
-    <Compile Include="ViewModel\SwitchDataContextViewModel.cs" />
+    <Compile Include="ViewModel\Demo\DataTemplateViewModel.cs" />
+    <Compile Include="ViewModel\Demo\DemoViewModel.cs" />
+    <Compile Include="ViewModel\Demo\MainViewModel.cs" />
+    <Compile Include="ViewModel\Demo\ResourceViewModel.cs" />
+    <Compile Include="ViewModel\Demo\SwitchDataContextViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
-    <Compile Include="Views\BindingView.xaml.cs">
+    <Compile Include="Views\Demo\BindingView.xaml.cs">
       <DependentUpon>BindingView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ControlTemplateView.xaml.cs">
+    <Compile Include="Views\Demo\ControlTemplateView.xaml.cs">
       <DependentUpon>ControlTemplateView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ConverterView.xaml.cs">
+    <Compile Include="Views\Demo\ConverterView.xaml.cs">
       <DependentUpon>ConverterView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\DataTemplateView.xaml.cs">
+    <Compile Include="Views\Demo\DataTemplateView.xaml.cs">
       <DependentUpon>DataTemplateView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Demo.xaml.cs">
+    <Compile Include="Views\Demo\Demo.xaml.cs">
       <DependentUpon>Demo.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\PdfViewerView.xaml.cs">
+    <Compile Include="Views\Demo\PdfViewerView.xaml.cs">
       <DependentUpon>PdfViewerView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ResourceView.xaml.cs">
+    <Compile Include="Views\Demo\ResourceView.xaml.cs">
       <DependentUpon>ResourceView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\SwitchDataContext.xaml.cs">
+    <Compile Include="Views\Demo\SwitchDataContext.xaml.cs">
       <DependentUpon>SwitchDataContext.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\TreeViewView.xaml.cs">
+    <Compile Include="Views\Demo\TreeViewView.xaml.cs">
       <DependentUpon>TreeViewView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ValidationView.xaml.cs">
+    <Compile Include="Views\Demo\ValidationView.xaml.cs">
       <DependentUpon>ValidationView.xaml</DependentUpon>
     </Compile>
     <Page Include="CustomControl\Pager\ImageButton.xaml">
@@ -236,47 +238,47 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\CustomControlView.xaml">
+    <Page Include="Views\Demo\CustomControlView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\BindingView.xaml">
+    <Page Include="Views\Demo\BindingView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ControlTemplateView.xaml">
+    <Page Include="Views\Demo\ControlTemplateView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ConverterView.xaml">
+    <Page Include="Views\Demo\ConverterView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\DataTemplateView.xaml">
+    <Page Include="Views\Demo\DataTemplateView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Demo.xaml">
+    <Page Include="Views\Demo\Demo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\PdfViewerView.xaml">
+    <Page Include="Views\Demo\PdfViewerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ResourceView.xaml">
+    <Page Include="Views\Demo\ResourceView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\SwitchDataContext.xaml">
+    <Page Include="Views\Demo\SwitchDataContext.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\TreeViewView.xaml">
+    <Page Include="Views\Demo\TreeViewView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ValidationView.xaml">
+    <Page Include="Views\Demo\ValidationView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -384,6 +386,10 @@
       <Project>{33dcdb3d-66b8-4367-a06a-2269ca31243f}</Project>
       <Name>Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TestPlugin\TestPlugin.csproj">
+      <Project>{4f410417-184c-4838-a94b-4ae9b67e1e97}</Project>
+      <Name>TestPlugin</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\folder.png" />
@@ -417,6 +423,12 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ViewModel\Person\" />
+    <Folder Include="ViewModel\User\" />
+    <Folder Include="Views\Person\" />
+    <Folder Include="Views\User\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
