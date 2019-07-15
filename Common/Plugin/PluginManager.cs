@@ -4,6 +4,7 @@ using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -19,8 +20,12 @@ namespace Common.Plugin
 
         static PluginManager ()
         {
-            var dir = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory);
-            var catalog = new DirectoryCatalog(dir.FullName,"*.dll");
+            var dir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            var pluginsPath = Path.Combine(dir,"plugins");
+            if(!Directory.Exists(pluginsPath))
+                Directory.CreateDirectory(pluginsPath);
+
+            var catalog = new DirectoryCatalog(pluginsPath,"*.dll");
             container = new CompositionContainer(catalog);
         }
 

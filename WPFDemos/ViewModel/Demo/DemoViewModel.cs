@@ -7,6 +7,7 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using WPFDemos.Common;
+using WPFDemos.Views.Demo;
 
 namespace WPFDemos.ViewModel.Demo
 {
@@ -22,6 +23,8 @@ namespace WPFDemos.ViewModel.Demo
         public RelayCommand TreeViewCommand { get; set; }
         public RelayCommand ValidationCommand { get; set; }
         public RelayCommand PdfViewerCommand { get; set; }
+
+        public RelayCommand PluginImportCommand { get; set; }
         public DemoViewModel ()
         {
             SwitchDataContextCommand = new RelayCommand(ShowSwitchDataContextWindow);
@@ -34,56 +37,62 @@ namespace WPFDemos.ViewModel.Demo
             TreeViewCommand = new RelayCommand(ShowTreeViewWindow);
             ValidationCommand = new RelayCommand(ShowValidationWindow);
             PdfViewerCommand = new RelayCommand(ShowPdfViewerWindow);
+            PluginImportCommand = new RelayCommand(ShowPluginImportWindow);
         }
 
         public void ShowSwitchDataContextWindow ()
         {
-            WindowManager.ShowWindow("ShowSwitchDataContextWindow");
+            WindowManager.ShowWindow(typeof(SwitchDataContext));
         }
 
         public void ShowDataTemplateWindow ()
         {
-            WindowManager.ShowWindow("ShowDataTemplateWindow");
+            WindowManager.ShowWindow(typeof(DataTemplateView));
         }
 
         public void ShowControlTemplateWindow ()
         {
-            WindowManager.ShowWindow("ShowControlTemplateWindow");
+            WindowManager.ShowWindow(typeof(ControlTemplateView));
         }
 
         public void ShowConverterWindow ()
         {
-            WindowManager.ShowWindow("ShowConverterWindow");
+            WindowManager.ShowWindow(typeof(ConverterView));
         }
 
         public void ShowResourceWindow ()
         {
-            WindowManager.ShowWindow("ShowResourceWindow");
+            WindowManager.ShowWindow(typeof(ResourceView));
         }
 
         public void ShowBindingWindow ()
         {
-            WindowManager.ShowWindow("ShowBindingWindow");
+            WindowManager.ShowWindow(typeof(BindingView));
         }
 
         public void ShowCustomControlWindow ()
         {
-            WindowManager.ShowWindow("ShowCustomControlWindow");
+            WindowManager.ShowWindow(typeof(CustomControlView));
         }
 
         public void ShowTreeViewWindow ()
         {
-            WindowManager.ShowWindow("ShowTreeViewWindow");
+            WindowManager.ShowWindow(typeof(TreeViewView));
         }
 
         public void ShowValidationWindow ()
         {
-            WindowManager.ShowWindow("ShowValidationWindow");
+            WindowManager.ShowWindow(typeof(ValidationView));
         }
 
         public void ShowPdfViewerWindow ()
         {
-            WindowManager.ShowWindow("ShowPdfViewerWindow");
+            WindowManager.ShowWindow(typeof(PdfViewerView));
+        }
+
+        public void ShowPluginImportWindow ()
+        {
+            WindowManager.ShowWindow(typeof(PluginImportView));
         }
     }
 }

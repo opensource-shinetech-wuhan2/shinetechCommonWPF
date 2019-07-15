@@ -11,16 +11,15 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using GalaSoft.MvvmLight.Messaging;
 
 namespace WPFDemos.Views.Demo
 {
     /// <summary>
-    /// Interaction logic for Demo.xaml
+    /// Interaction logic for PluginImportView.xaml
     /// </summary>
-    public partial class Demo :Window
+    public partial class PluginImportView :Window
     {
-        public Demo ()
+        public PluginImportView ()
         {
             InitializeComponent();
         }

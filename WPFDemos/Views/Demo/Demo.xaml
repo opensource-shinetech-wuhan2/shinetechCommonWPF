@@ -31,6 +31,8 @@
             <Button Content="validation demo" Command="{Binding ValidationCommand}" />
 
             <Button Content="pdfViewer demo" Command="{Binding PdfViewerCommand}" />
+
+            <Button Content="plugin import demo" Command="{Binding PluginImportCommand}" />
         </StackPanel>
     </Grid>
 </Window>

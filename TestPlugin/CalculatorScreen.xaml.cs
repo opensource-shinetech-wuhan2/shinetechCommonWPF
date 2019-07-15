@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,17 +11,20 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
-using GalaSoft.MvvmLight.Messaging;
+using Common.Plugin;
 
-namespace WPFDemos.Views.Demo
+namespace UserControlPlugin
 {
     /// <summary>
-    /// Interaction logic for Demo.xaml
+    /// Interaction logic for CalculatorScreen.xaml
     /// </summary>
-    public partial class Demo :Window
+    [Export(typeof(IView))]
+    [CustomExportMetaData("CalculatorScreen","","hinson","1.0")]
+    public partial class CalculatorScreen :UserControl,IView
     {
-        public Demo ()
+        public CalculatorScreen ()
         {
             InitializeComponent();
         }

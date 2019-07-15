@@ -110,6 +110,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Common\MessageManager.cs" />
     <Compile Include="Common\WindowManager.cs" />
     <Compile Include="Converters\ColorToBrushConverter.cs" />
     <Compile Include="Converters\MultiColorConverter.cs" />
@@ -126,6 +127,7 @@
     <Compile Include="Data\Person.cs" />
     <Compile Include="Data\PeopleDataContext.cs" />
     <Compile Include="Message\PdfViewerMessage.cs" />
+    <Compile Include="Message\ShowWindowMessage.cs" />
     <Compile Include="Service\MenuService.cs" />
     <Compile Include="Data\IDataContext.cs" />
     <Compile Include="Message\RenameMenuMessage.cs" />
@@ -145,6 +147,7 @@
     <Compile Include="ViewModel\Demo\ConverterViewModelcs.cs" />
     <Compile Include="ViewModel\Demo\CustomControlViewModel.cs" />
     <Compile Include="ViewModel\Demo\PdfViewerViewModel.cs" />
+    <Compile Include="ViewModel\Demo\PluginImportViewModel.cs" />
     <Compile Include="ViewModel\Demo\TreeViewViewModel.cs" />
     <Compile Include="ViewModel\Demo\ValidationViewModel.cs" />
     <Compile Include="Views\Demo\CustomControlView.xaml.cs">
@@ -174,6 +177,9 @@
     <Compile Include="Views\Demo\PdfViewerView.xaml.cs">
       <DependentUpon>PdfViewerView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Demo\PluginImportView.xaml.cs">
+      <DependentUpon>PluginImportView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Demo\ResourceView.xaml.cs">
       <DependentUpon>ResourceView.xaml</DependentUpon>
     </Compile>
@@ -186,6 +192,7 @@
     <Compile Include="Views\Demo\ValidationView.xaml.cs">
       <DependentUpon>ValidationView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ViewLocator.cs" />
     <Page Include="CustomControl\Pager\ImageButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -263,6 +270,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Demo\PdfViewerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Demo\PluginImportView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -386,9 +397,9 @@
       <Project>{33dcdb3d-66b8-4367-a06a-2269ca31243f}</Project>
       <Name>Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TestPlugin\TestPlugin.csproj">
+    <ProjectReference Include="..\TestPlugin\UserControlPlugin.csproj">
       <Project>{4f410417-184c-4838-a94b-4ae9b67e1e97}</Project>
-      <Name>TestPlugin</Name>
+      <Name>UserControlPlugin</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

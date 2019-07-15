@@ -29,7 +29,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Business", "Business", "{EF
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{2F563FC7-219C-42AA-B705-B2301CB6AEC3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestPlugin", "TestPlugin\TestPlugin.csproj", "{4F410417-184C-4838-A94B-4AE9B67E1E97}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserControlPlugin", "TestPlugin\UserControlPlugin.csproj", "{4F410417-184C-4838-A94B-4AE9B67E1E97}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

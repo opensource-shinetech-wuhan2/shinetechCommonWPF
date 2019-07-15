@@ -1,0 +1,36 @@
+﻿<Window x:Class="WPFDemos.Views.Demo.PluginImportView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPFDemos.Views.Demo"
+        mc:Ignorable="d"
+        Title="PluginImportView" Height="450" Width="800">
+
+    <Window.DataContext>
+        <Binding Source="{StaticResource Locator}" Path="PluginImportView"></Binding>
+    </Window.DataContext>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="45" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Button Width="160"
+		 HorizontalAlignment="Center"
+		 VerticalAlignment="Center"
+		 Command="{Binding ImportPluginCommand}"
+		 Content="Import and embedd plugin" />
+
+        <Border Grid.Row="1"
+		 Margin="10"
+		 HorizontalAlignment="Stretch"
+		 VerticalAlignment="Stretch"
+		 BorderBrush="Black"
+		 BorderThickness="1">
+            <ContentControl Content="{Binding PluginView}">
+            </ContentControl>
+        </Border>
+    </Grid>
+</Window>

@@ -10,8 +10,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using AutoMapper;
+using Common.Plugin;
 using GalaSoft.MvvmLight.Ioc;
-using TestPlugin;
 using WPFDemos.Common;
 
 namespace WPFDemos

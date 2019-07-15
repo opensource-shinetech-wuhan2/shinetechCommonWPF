@@ -12,9 +12,11 @@
   See http://www.galasoft.ch/mvvm
 */
 
+using System.Windows;
 using CommonServiceLocator;
 using GalaSoft.MvvmLight.Ioc;
 using WPFDemos.ViewModel.Demo;
+using WPFDemos.Views.Demo;
 
 namespace WPFDemos.ViewModel
 {
@@ -30,17 +32,6 @@ namespace WPFDemos.ViewModel
         public ViewModelLocator()
         {
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
-
-            ////if (ViewModelBase.IsInDesignModeStatic)
-            ////{
-            ////    // Create design time view services and models
-            ////    SimpleIoc.Default.Register<IDataService, DesignDataService>();
-            ////}
-            ////else
-            ////{
-            ////    // Create run time view services and models
-            ////    SimpleIoc.Default.Register<IDataService, DataService>();
-            ////}
             
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<DemoViewModel>();
@@ -54,6 +45,7 @@ namespace WPFDemos.ViewModel
             SimpleIoc.Default.Register<TreeViewViewModel>();
             SimpleIoc.Default.Register<ValidationViewModel>();
             SimpleIoc.Default.Register<PdfViewerViewModel>();
+            SimpleIoc.Default.Register<PluginImportViewModel>();
         }
 
         public MainViewModel Main
@@ -149,6 +141,14 @@ namespace WPFDemos.ViewModel
             get
             {
                 return ServiceLocator.Current.GetInstance<PdfViewerViewModel>();
+            }
+        }
+
+        public PluginImportViewModel PluginImportView
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<PluginImportViewModel>();
             }
         }
 
