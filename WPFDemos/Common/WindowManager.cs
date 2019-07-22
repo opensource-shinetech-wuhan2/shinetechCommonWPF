@@ -33,6 +33,21 @@ namespace WPFDemos.Common
         public static void ShowWindow (Type windowType)
         {
             MessageManager<ShowWindowMessage>.Send(new ShowWindowMessage(windowType));
-        }             
+        }
+
+        public static void ShowErrorWindow (int statusCode)
+        {
+            string message = "";
+            switch(statusCode)
+            {
+                case 401:
+                    message = "have no right to  operate";
+                    break;
+                default:
+                    break;
+            }
+
+            MessageBox.Show(message);
+        }
     }
 }

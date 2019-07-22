@@ -4,8 +4,10 @@ using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using Common.Http;
 using Newtonsoft.Json;
+using WPFDemos.Common;
 
 namespace WPFDemos.Service
 {
@@ -18,13 +20,19 @@ namespace WPFDemos.Service
             return ApiBaseUrl + path;
         }
 
-        //
         protected virtual T Request<T> (string url,object para,string type = "POST")
         {
             var jsonPara = JsonConvert.SerializeObject(para);
             var accessToken = "Bearer " + Properties.Settings.Default.Token;
-            var jsonStr = HttpPostUtility.Request(url,jsonPara,accessToken,type);
-            return JsonConvert.DeserializeObject<T>(jsonStr);
+            var requestResult = HttpUtility.Request(url,jsonPara,accessToken,type);
+
+            if(requestResult.StatusCode != 200)//error
+            {
+                WindowManager.ShowErrorWindow(requestResult.StatusCode);
+                return default(T);
+            }
+
+            return JsonConvert.DeserializeObject<T>(requestResult.Data);
         }
     }
 }

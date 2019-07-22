@@ -31,5 +31,12 @@ namespace DataModel
         public virtual DbSet<Person> People { get; set; }
         public virtual DbSet<Course> Courses { get; set; }
         public virtual DbSet<Student> Students { get; set; }
+        public virtual DbSet<Permission> Permissions { get; set; }
+        public virtual DbSet<PermissionGroup> PermissionGroups { get; set; }
+        public virtual DbSet<PermissionGroupPermission> PermissionGroupPermissions { get; set; }
+        public virtual DbSet<RolePermissionGroup> RolePermissionGroups { get; set; }
+        public virtual DbSet<Role> Roles { get; set; }
+        public virtual DbSet<UserRole> UserRoles { get; set; }
+        public virtual DbSet<User> Users { get; set; }
     }
 }

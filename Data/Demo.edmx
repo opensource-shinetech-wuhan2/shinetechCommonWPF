@@ -36,6 +36,48 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar(max)" />
         </EntityType>
+        <EntityType Name="Permission">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PermissionGroup">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GroupName" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PermissionGroupPermissions">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PermissionGroupId" Type="int" Nullable="false" />
+          <Property Name="PermissionId" Type="int" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RolePermissionGroups">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleId" Type="int" Nullable="false" />
+          <Property Name="PermissionGroupId" Type="int" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="Student">
           <Key>
             <PropertyRef Name="id" />
@@ -50,6 +92,24 @@
           </Key>
           <Property Name="studentId" Type="int" Nullable="false" />
           <Property Name="courseId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="RoleId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="UpdateTime" Type="datetime" />
         </EntityType>
         <Association Name="FK_Children_Parent">
           <End Role="Menu" Type="Self.Menu" Multiplicity="0..1" />
@@ -72,6 +132,54 @@
             </Principal>
             <Dependent Role="Clients">
               <PropertyRef Name="PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PermissionGroupPermissions_Permission">
+          <End Role="Permission" Type="Self.Permission" Multiplicity="1" />
+          <End Role="PermissionGroupPermissions" Type="Self.PermissionGroupPermissions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Permission">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PermissionGroupPermissions">
+              <PropertyRef Name="PermissionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PermissionGroupPermissions_PermissionGroup">
+          <End Role="PermissionGroup" Type="Self.PermissionGroup" Multiplicity="1" />
+          <End Role="PermissionGroupPermissions" Type="Self.PermissionGroupPermissions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PermissionGroup">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PermissionGroupPermissions">
+              <PropertyRef Name="PermissionGroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RolePermissionGroups_PermissionGroup">
+          <End Role="PermissionGroup" Type="Self.PermissionGroup" Multiplicity="1" />
+          <End Role="RolePermissionGroups" Type="Self.RolePermissionGroups" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PermissionGroup">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RolePermissionGroups">
+              <PropertyRef Name="PermissionGroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RolePermissionGroups_Roles">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
+          <End Role="RolePermissionGroups" Type="Self.RolePermissionGroups" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RolePermissionGroups">
+              <PropertyRef Name="RoleId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -99,13 +207,44 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_UserRole_Roles">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
+          <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserRole">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRole_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserRole">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="TestModelStoreContainer">
           <EntitySet Name="Clients" EntityType="Self.Clients" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Course" EntityType="Self.Course" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Menu" EntityType="Self.Menu" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="People" EntityType="Self.People" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Permission" EntityType="Self.Permission" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PermissionGroup" EntityType="Self.PermissionGroup" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PermissionGroupPermissions" EntityType="Self.PermissionGroupPermissions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RolePermissionGroups" EntityType="Self.RolePermissionGroups" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Student" EntityType="Self.Student" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StudentCourse" EntityType="Self.StudentCourse" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserRole" EntityType="Self.UserRole" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Children_Parent" Association="Self.FK_Children_Parent">
             <End Role="Menu" EntitySet="Menu" />
             <End Role="Menu1" EntitySet="Menu" />
@@ -114,6 +253,22 @@
             <End Role="People" EntitySet="People" />
             <End Role="Clients" EntitySet="Clients" />
           </AssociationSet>
+          <AssociationSet Name="FK_PermissionGroupPermissions_Permission" Association="Self.FK_PermissionGroupPermissions_Permission">
+            <End Role="Permission" EntitySet="Permission" />
+            <End Role="PermissionGroupPermissions" EntitySet="PermissionGroupPermissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PermissionGroupPermissions_PermissionGroup" Association="Self.FK_PermissionGroupPermissions_PermissionGroup">
+            <End Role="PermissionGroup" EntitySet="PermissionGroup" />
+            <End Role="PermissionGroupPermissions" EntitySet="PermissionGroupPermissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RolePermissionGroups_PermissionGroup" Association="Self.FK_RolePermissionGroups_PermissionGroup">
+            <End Role="PermissionGroup" EntitySet="PermissionGroup" />
+            <End Role="RolePermissionGroups" EntitySet="RolePermissionGroups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RolePermissionGroups_Roles" Association="Self.FK_RolePermissionGroups_Roles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="RolePermissionGroups" EntitySet="RolePermissionGroups" />
+          </AssociationSet>
           <AssociationSet Name="FK_StudentCourse_Course" Association="Self.FK_StudentCourse_Course">
             <End Role="Course" EntitySet="Course" />
             <End Role="StudentCourse" EntitySet="StudentCourse" />
@@ -121,6 +276,14 @@
           <AssociationSet Name="FK_StudentCourse_Student" Association="Self.FK_StudentCourse_Student">
             <End Role="Student" EntitySet="Student" />
             <End Role="StudentCourse" EntitySet="StudentCourse" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRole_Roles" Association="Self.FK_UserRole_Roles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="UserRole" EntitySet="UserRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRole_Users" Association="Self.FK_UserRole_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserRole" EntitySet="UserRole" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -167,6 +330,37 @@
           <AssociationSet Name="StudentCourse" Association="TestModel.StudentCourse">
             <End Role="Course" EntitySet="Courses" />
             <End Role="Student" EntitySet="Students" />
+          </AssociationSet>
+          <EntitySet Name="Permissions" EntityType="TestModel.Permission" />
+          <EntitySet Name="PermissionGroups" EntityType="TestModel.PermissionGroup" />
+          <EntitySet Name="PermissionGroupPermissions" EntityType="TestModel.PermissionGroupPermission" />
+          <EntitySet Name="RolePermissionGroups" EntityType="TestModel.RolePermissionGroup" />
+          <EntitySet Name="Roles" EntityType="TestModel.Role" />
+          <EntitySet Name="UserRoles" EntityType="TestModel.UserRole" />
+          <EntitySet Name="Users" EntityType="TestModel.User" />
+          <AssociationSet Name="FK_PermissionGroupPermissions_Permission" Association="TestModel.FK_PermissionGroupPermissions_Permission">
+            <End Role="Permission" EntitySet="Permissions" />
+            <End Role="PermissionGroupPermission" EntitySet="PermissionGroupPermissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PermissionGroupPermissions_PermissionGroup" Association="TestModel.FK_PermissionGroupPermissions_PermissionGroup">
+            <End Role="PermissionGroup" EntitySet="PermissionGroups" />
+            <End Role="PermissionGroupPermission" EntitySet="PermissionGroupPermissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RolePermissionGroups_PermissionGroup" Association="TestModel.FK_RolePermissionGroups_PermissionGroup">
+            <End Role="PermissionGroup" EntitySet="PermissionGroups" />
+            <End Role="RolePermissionGroup" EntitySet="RolePermissionGroups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RolePermissionGroups_Roles" Association="TestModel.FK_RolePermissionGroups_Roles">
+            <End Role="Role" EntitySet="Roles" />
+            <End Role="RolePermissionGroup" EntitySet="RolePermissionGroups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRole_Roles" Association="TestModel.FK_UserRole_Roles">
+            <End Role="Role" EntitySet="Roles" />
+            <End Role="UserRole" EntitySet="UserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRole_Users" Association="TestModel.FK_UserRole_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="UserRole" EntitySet="UserRoles" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Client">
@@ -217,6 +411,150 @@
         <Association Name="StudentCourse">
           <End Type="TestModel.Course" Role="Course" Multiplicity="*" />
           <End Type="TestModel.Student" Role="Student" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Permission">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="PermissionGroupPermissions" Relationship="TestModel.FK_PermissionGroupPermissions_Permission" FromRole="Permission" ToRole="PermissionGroupPermission" />
+        </EntityType>
+        <EntityType Name="PermissionGroup">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GroupName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="PermissionGroupPermissions" Relationship="TestModel.FK_PermissionGroupPermissions_PermissionGroup" FromRole="PermissionGroup" ToRole="PermissionGroupPermission" />
+          <NavigationProperty Name="RolePermissionGroups" Relationship="TestModel.FK_RolePermissionGroups_PermissionGroup" FromRole="PermissionGroup" ToRole="RolePermissionGroup" />
+        </EntityType>
+        <EntityType Name="PermissionGroupPermission">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PermissionGroupId" Type="Int32" Nullable="false" />
+          <Property Name="PermissionId" Type="Int32" Nullable="false" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Permission" Relationship="TestModel.FK_PermissionGroupPermissions_Permission" FromRole="PermissionGroupPermission" ToRole="Permission" />
+          <NavigationProperty Name="PermissionGroup" Relationship="TestModel.FK_PermissionGroupPermissions_PermissionGroup" FromRole="PermissionGroupPermission" ToRole="PermissionGroup" />
+        </EntityType>
+        <EntityType Name="RolePermissionGroup">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleId" Type="Int32" Nullable="false" />
+          <Property Name="PermissionGroupId" Type="Int32" Nullable="false" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="PermissionGroup" Relationship="TestModel.FK_RolePermissionGroups_PermissionGroup" FromRole="RolePermissionGroup" ToRole="PermissionGroup" />
+          <NavigationProperty Name="Role" Relationship="TestModel.FK_RolePermissionGroups_Roles" FromRole="RolePermissionGroup" ToRole="Role" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="RolePermissionGroups" Relationship="TestModel.FK_RolePermissionGroups_Roles" FromRole="Role" ToRole="RolePermissionGroup" />
+          <NavigationProperty Name="UserRoles" Relationship="TestModel.FK_UserRole_Roles" FromRole="Role" ToRole="UserRole" />
+        </EntityType>
+        <EntityType Name="UserRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="RoleId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Role" Relationship="TestModel.FK_UserRole_Roles" FromRole="UserRole" ToRole="Role" />
+          <NavigationProperty Name="User" Relationship="TestModel.FK_UserRole_Users" FromRole="UserRole" ToRole="User" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="UpdateTime" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="UserRoles" Relationship="TestModel.FK_UserRole_Users" FromRole="User" ToRole="UserRole" />
+        </EntityType>
+        <Association Name="FK_PermissionGroupPermissions_Permission">
+          <End Type="TestModel.Permission" Role="Permission" Multiplicity="1" />
+          <End Type="TestModel.PermissionGroupPermission" Role="PermissionGroupPermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Permission">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PermissionGroupPermission">
+              <PropertyRef Name="PermissionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PermissionGroupPermissions_PermissionGroup">
+          <End Type="TestModel.PermissionGroup" Role="PermissionGroup" Multiplicity="1" />
+          <End Type="TestModel.PermissionGroupPermission" Role="PermissionGroupPermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PermissionGroup">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PermissionGroupPermission">
+              <PropertyRef Name="PermissionGroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RolePermissionGroups_PermissionGroup">
+          <End Type="TestModel.PermissionGroup" Role="PermissionGroup" Multiplicity="1" />
+          <End Type="TestModel.RolePermissionGroup" Role="RolePermissionGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PermissionGroup">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RolePermissionGroup">
+              <PropertyRef Name="PermissionGroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RolePermissionGroups_Roles">
+          <End Type="TestModel.Role" Role="Role" Multiplicity="1" />
+          <End Type="TestModel.RolePermissionGroup" Role="RolePermissionGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RolePermissionGroup">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRole_Roles">
+          <End Type="TestModel.Role" Role="Role" Multiplicity="1" />
+          <End Type="TestModel.UserRole" Role="UserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserRole">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRole_Users">
+          <End Type="TestModel.User" Role="User" Multiplicity="1" />
+          <End Type="TestModel.UserRole" Role="UserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserRole">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
       </Schema>
     </edmx:ConceptualModels>
@@ -275,6 +613,73 @@
               <ScalarProperty Name="id" ColumnName="courseId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="Permissions">
+            <EntityTypeMapping TypeName="TestModel.Permission">
+              <MappingFragment StoreEntitySet="Permission">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PermissionGroups">
+            <EntityTypeMapping TypeName="TestModel.PermissionGroup">
+              <MappingFragment StoreEntitySet="PermissionGroup">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PermissionGroupPermissions">
+            <EntityTypeMapping TypeName="TestModel.PermissionGroupPermission">
+              <MappingFragment StoreEntitySet="PermissionGroupPermissions">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="PermissionId" ColumnName="PermissionId" />
+                <ScalarProperty Name="PermissionGroupId" ColumnName="PermissionGroupId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RolePermissionGroups">
+            <EntityTypeMapping TypeName="TestModel.RolePermissionGroup">
+              <MappingFragment StoreEntitySet="RolePermissionGroups">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="PermissionGroupId" ColumnName="PermissionGroupId" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="TestModel.Role">
+              <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserRoles">
+            <EntityTypeMapping TypeName="TestModel.UserRole">
+              <MappingFragment StoreEntitySet="UserRole">
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="TestModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

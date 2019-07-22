@@ -34,6 +34,14 @@ namespace WebApi.Controllers
             if(username == "admin" && pwd == "admin")
             {
                 var identity = new ClaimsIdentity(Startup.OAuthBearerOptions.AuthenticationType);
+
+                //role
+                var roles = new List<string>() { "admin" };
+                foreach(var roleName in roles)
+                {
+                    identity.AddClaim(new Claim(ClaimTypes.Role,roleName,ClaimValueTypes.String));
+                }
+                
                 var ticket = new AuthenticationTicket(identity,CreateProperties(username));
                 ticket.Properties.IssuedUtc = DateTime.UtcNow;
                 ticket.Properties.ExpiresUtc = DateTime.UtcNow.Add(TimeSpan.FromDays(1));

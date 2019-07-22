@@ -13,6 +13,19 @@
         <EntityTypeShape EntityType="TestModel.Course" Width="1.5" PointX="0.75" PointY="3.875" />
         <EntityTypeShape EntityType="TestModel.Student" Width="1.5" PointX="3" PointY="3.875" />
         <AssociationConnector Association="TestModel.StudentCourse" />
+        <EntityTypeShape EntityType="TestModel.Permission" Width="1.5" PointX="5.75" PointY="3.75" />
+        <EntityTypeShape EntityType="TestModel.PermissionGroup" Width="1.5" PointX="0.75" PointY="6.75" />
+        <EntityTypeShape EntityType="TestModel.PermissionGroupPermission" Width="1.5" PointX="2.75" PointY="6.75" />
+        <EntityTypeShape EntityType="TestModel.RolePermissionGroup" Width="1.5" PointX="4.75" PointY="6.75" />
+        <EntityTypeShape EntityType="TestModel.Role" Width="1.5" PointX="6.75" PointY="6.75" />
+        <EntityTypeShape EntityType="TestModel.UserRole" Width="1.5" PointX="9" PointY="6.75" />
+        <EntityTypeShape EntityType="TestModel.User" Width="1.5" PointX="6.75" PointY="10.625" />
+        <AssociationConnector Association="TestModel.FK_PermissionGroupPermissions_Permission" />
+        <AssociationConnector Association="TestModel.FK_PermissionGroupPermissions_PermissionGroup" />
+        <AssociationConnector Association="TestModel.FK_RolePermissionGroups_PermissionGroup" />
+        <AssociationConnector Association="TestModel.FK_RolePermissionGroups_Roles" />
+        <AssociationConnector Association="TestModel.FK_UserRole_Roles" />
+        <AssociationConnector Association="TestModel.FK_UserRole_Users" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

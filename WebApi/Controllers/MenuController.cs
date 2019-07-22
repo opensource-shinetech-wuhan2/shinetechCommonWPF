@@ -9,10 +9,10 @@ using Business;
 using Business.IBusiness;
 using Business.Model;
 using Unity.Attributes;
+using WebApi.Auth;
 
 namespace WebApi.Controllers
 {
-    [Authorize]
     [RoutePrefix("api/menu")]
     public class MenuController : ApiController
     {       
@@ -25,6 +25,7 @@ namespace WebApi.Controllers
 
         [HttpGet,HttpPost]
         [Route("LoadMenu")]
+        [Authorize(Roles = "admin1")]
         public async Task<MulitViewResult<MenuModel>> LoadMenu ()
         {
             var result = await _menuBusiness.LoadMenu();
@@ -33,6 +34,7 @@ namespace WebApi.Controllers
 
         [HttpPost]
         [Route("AddOrUpdate")]
+        [Authorize(Roles = "admin")]
         public async Task<ViewResult<MenuModel>> AddOrUpdate (MenuModel model)
         {
             return await _menuBusiness.AddOrUpdate(model);

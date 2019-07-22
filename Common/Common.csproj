@@ -63,7 +63,8 @@
   <ItemGroup>
     <Compile Include="Extensions\DatetimeExtension.cs" />
     <Compile Include="Extensions\StringExtension.cs" />
-    <Compile Include="Http\HttpPostUtility.cs" />
+    <Compile Include="Http\HttpUtility.cs" />
+    <Compile Include="Http\RequestResult.cs" />
     <Compile Include="Plugin\CustomExportMetaData.cs" />
     <Compile Include="Plugin\IMetaData.cs" />
     <Compile Include="Plugin\PluginManager.cs" />

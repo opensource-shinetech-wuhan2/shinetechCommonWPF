@@ -1,23 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Media3D;
-using AutoMapper;
 using Business.Model;
-using Common;
 using Common.Utility;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
-using WPFDemos.Data;
 using WPFDemos.Message;
 using WPFDemos.Service;
 
@@ -72,9 +63,10 @@ namespace WPFDemos.ViewModel.Demo
             var loginResult = _userService.Login();
 
             var result = _menuService.LoadMenu();
-            TreeData = new ObservableCollection<MenuModel>(result.Datas);
-
-            
+            if(result != null)
+            {
+                TreeData = new ObservableCollection<MenuModel>(result.Datas);
+            }
         }
 
         private static DependencyObject VisualUpwardSearch<M> (DependencyObject source)
