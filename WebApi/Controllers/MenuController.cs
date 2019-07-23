@@ -8,7 +8,6 @@ using System.Web.Http;
 using Business;
 using Business.IBusiness;
 using Business.Model;
-using Unity.Attributes;
 using WebApi.Auth;
 
 namespace WebApi.Controllers
@@ -25,7 +24,7 @@ namespace WebApi.Controllers
 
         [HttpGet,HttpPost]
         [Route("LoadMenu")]
-        [Authorize(Roles = "admin1")]
+        [TokenAuthorize("canViewMenu")]
         public async Task<MulitViewResult<MenuModel>> LoadMenu ()
         {
             var result = await _menuBusiness.LoadMenu();

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using System.Web.Http.ExceptionHandling;
+using WebApi.Common;
 
 namespace WebApi
 {
@@ -19,6 +21,10 @@ namespace WebApi
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+            
+
+            //log all exception
+            config.Services.Add(typeof(IExceptionLogger),new CustomExceptionLogger());
         }
     }
 }

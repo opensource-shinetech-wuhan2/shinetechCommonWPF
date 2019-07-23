@@ -11,6 +11,12 @@ namespace Business.Model
         public string Message { get; set; }
     }
 
+    public class LoginViewResult :ViewResultBase
+    {
+        public string Token { get; set; }
+        public List<PermissionModel> Permissions { get; set; }
+    }
+
     public class ViewResult<T>:ViewResultBase
     {
         public T Data { get; set; }

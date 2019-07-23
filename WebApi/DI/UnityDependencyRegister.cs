@@ -25,6 +25,8 @@ namespace WebApi.DI
             container.RegisterType<IClientBusiness,ClientBusiness>();
             container.RegisterType<IStudentBusiness,StudentBusiness>();
             container.RegisterType<ICourseBusiness,CourseBusiness>();
+            container.RegisterType<IPermissionBusiness,PermissionBusiness>();
+            container.RegisterType<IUserBusiness,UserBusiness>();
         }
     }
 }

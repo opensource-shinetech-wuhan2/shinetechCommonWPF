@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using AutoMapper;
 using Business.Model;
 using Business.IBusiness;
@@ -40,41 +37,25 @@ namespace Business
 
         public StudentModel Add (StudentModel dto)
         {
-            try
-            {
-                var entity = _mapper.Map<StudentModel,Student>(dto,opt=> opt.ConfigureMap().ForMember(dst => dst.Courses,m => m.Ignore()));
-                var student = _studentAgent.Add(entity);
+            var entity = _mapper.Map<StudentModel,Student>(dto,opt => opt.ConfigureMap().ForMember(dst => dst.Courses,m => m.Ignore()));
+            var student = _studentAgent.Add(entity);
 
-                foreach(var course in dto.Courses)
-                {
-                    entity.Courses.Add(_mapper.Map<Course>(course));
-                }
-                student = _studentAgent.Update(entity);
-
-                var studentDto = _mapper.Map<StudentModel>(student);
-                return studentDto;
-            }
-            catch(Exception ex)
+            foreach(var course in dto.Courses)
             {
-                Logger.WriteErrorLog(ex);
+                entity.Courses.Add(_mapper.Map<Course>(course));
             }
-            return null;
+            student = _studentAgent.Update(entity);
+
+            var studentDto = _mapper.Map<StudentModel>(student);
+            return studentDto;
         }
 
         public StudentModel Update (StudentModel dto)
         {
-            try
-            {
-                var entity = _mapper.Map<Student>(dto);
-                var student = _studentAgent.Update(entity);
-                var studentDto = _mapper.Map<StudentModel>(student);
-                return studentDto;
-            }
-            catch(Exception ex)
-            {
-
-            }
-            return null;
+            var entity = _mapper.Map<Student>(dto);
+            var student = _studentAgent.Update(entity);
+            var studentDto = _mapper.Map<StudentModel>(student);
+            return studentDto;
         }
     }
 }

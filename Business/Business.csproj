@@ -70,12 +70,16 @@
     <Compile Include="IBusiness\ICourseBusiness.cs" />
     <Compile Include="IBusiness\IMenuBusiness.cs" />
     <Compile Include="IBusiness\IPeopleBusiness.cs" />
+    <Compile Include="IBusiness\IPermissionBusiness.cs" />
     <Compile Include="IBusiness\IStudentBusiness.cs" />
+    <Compile Include="IBusiness\IUserBusiness.cs" />
     <Compile Include="PeopleBusiness.cs" />
     <Compile Include="MenuBusiness.cs" />
     <Compile Include="MapperProfile\BusinessProfile.cs" />
+    <Compile Include="PermissionBusiness.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StudentBusiness.cs" />
+    <Compile Include="UserBusiness.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Business.Model\Business.Model.csproj">

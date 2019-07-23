@@ -12,7 +12,7 @@ namespace WPFDemos.Service
 {
     public class UserService :ServiceBase
     {
-        public ViewResult<string> Login ()
+        public LoginViewResult Login ()
         {
             var url = GetUrl("user/login");
             var para = new
@@ -20,8 +20,8 @@ namespace WPFDemos.Service
                Username = "admin",
                Pwd = "admin"
             };
-            var result = Request<ViewResult<string>>(url,para);
-            var token = result.Data;
+            var result = Request<LoginViewResult>(url,para);
+            var token = result.Token;
 
             Properties.Settings.Default.Token = token;
             Properties.Settings.Default.Save();

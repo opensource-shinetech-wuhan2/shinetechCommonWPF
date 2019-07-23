@@ -154,10 +154,13 @@
     <Compile Include="App_Start\JsonConfig.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Auth\CustomAuthorizeAttribute.cs" />
     <Compile Include="Common\MapperFactory.cs" />
+    <Compile Include="Controllers\PermissionController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
     <Compile Include="DI\UnityDependencyRegister.cs" />
+    <Compile Include="Common\CustomExceptionLogger.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -175,7 +178,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Auth\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Business.Model\Business.Model.csproj">
@@ -185,6 +187,10 @@
     <ProjectReference Include="..\Business\Business.csproj">
       <Project>{e47377d8-7a0a-4121-a6f8-50fe2bc89ad0}</Project>
       <Name>Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{33dcdb3d-66b8-4367-a06a-2269ca31243f}</Project>
+      <Name>Common</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

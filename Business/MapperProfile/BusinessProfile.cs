@@ -34,6 +34,18 @@ namespace Business.MapperProfile
 
             CreateMap<CourseModel,Course>();
             CreateMap<Course,CourseModel>();
+          
+            CreateMap<PermissionModel,Permission>();
+            CreateMap<Permission,PermissionModel>();
+
+            CreateMap<UserModel,User>();
+            CreateMap<User,UserModel>();
+
+            CreateMap<RoleModel,Role>();
+            CreateMap<Role,RoleModel>();
+            
+            CreateMap<UserRoleModel,UserRole>();
+            CreateMap<UserRole,UserRoleModel>();
         }
     }
 }
