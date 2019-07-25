@@ -5,10 +5,12 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Media3D;
 using Business.Model;
+using Common.Http;
 using Common.Utility;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
+using WPFDemos.Common;
 using WPFDemos.Message;
 using WPFDemos.Service;
 
@@ -62,11 +64,18 @@ namespace WPFDemos.ViewModel.Demo
 
             var loginResult = _userService.Login();
 
-            var result = _menuService.LoadMenu();
-            if(result != null)
-            {
-                TreeData = new ObservableCollection<MenuModel>(result.Datas);
-            }
+            _menuService.LoadMenu().Then(r=> {
+                if(r.HasError())
+                {
+                    WindowManager.ShowErrorWindow(r.StatusCode);
+                    return;
+                }
+                if(r.Data != null)
+                {
+                    TreeData = new ObservableCollection<MenuModel>(r.Data.Datas);
+                }
+            });
+            
         }
 
         private static DependencyObject VisualUpwardSearch<M> (DependencyObject source)
@@ -157,16 +166,23 @@ namespace WPFDemos.ViewModel.Demo
                 Type = type
             };
 
-            var addResult = _menuService.AddOrUpdate(menuDto);
-            var menu = addResult.Data;
-            if(menu != null)
-            {               
-                SelectedMenu.Id = menu.Id;
-                menuDto.Id = menu.Id;
-            }
-            menuDto.Icon = IconUtility.GetIcon(menuDto.Type);
-            menuDto.Parent = SelectedMenu;
-            SelectedMenu.Children.Add(menuDto);
+            _menuService.AddOrUpdate(menuDto).Then(r => {
+                if(r.HasError())
+                {
+                    WindowManager.ShowErrorWindow(r.StatusCode);
+                    return;
+                }
+
+                var menu = r.Data.Data;
+                if(menu != null)
+                {
+                    SelectedMenu.Id = menu.Id;
+                    menuDto.Id = menu.Id;
+                }
+                menuDto.Icon = IconUtility.GetIcon(menuDto.Type);
+                menuDto.Parent = SelectedMenu;
+                SelectedMenu.Children.Add(menuDto);
+            });           
         }
 
         public void Rename (RoutedEventArgs e)
@@ -187,13 +203,22 @@ namespace WPFDemos.ViewModel.Demo
         public void Delete (RoutedEventArgs e)
         {
             var id = SelectedMenu.Id;
-            var result = _menuService.Delete(id);
-            if(result.Data) {
-                if(SelectedMenuParent != null)
+            _menuService.Delete(id).Then(r=>{
+                if(r.HasError())
                 {
-                    var removeResult = SelectedMenuParent.Children.Remove(SelectedMenu);
+                    WindowManager.ShowErrorWindow(r.StatusCode);
+                    return;
                 }
-            }
+
+                if(r.Data.Data)
+                {
+                    if(SelectedMenuParent != null)
+                    {
+                        var removeResult = SelectedMenuParent.Children.Remove(SelectedMenu);
+                    }
+                }
+
+            });            
         }
     }
 }

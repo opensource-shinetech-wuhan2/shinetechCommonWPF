@@ -33,6 +33,8 @@
             <Button Content="pdfViewer demo" Command="{Binding PdfViewerCommand}" />
 
             <Button Content="plugin import demo" Command="{Binding PluginImportCommand}" />
+
+            <Button Content="permission demo" Command="{Binding PermissionCommand}" />
         </StackPanel>
     </Grid>
 </Window>

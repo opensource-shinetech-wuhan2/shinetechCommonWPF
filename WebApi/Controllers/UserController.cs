@@ -51,19 +51,19 @@ namespace WebApi.Controllers
                 var permissions = await _permissionBusiness.GetUserPermissions(1);
 
                 //role
-                //foreach(var userRole in user.UserRoles)
-                //{
-                //    var roleName = userRole.Role.Name;
-                //    identity.AddClaim(new Claim(ClaimTypes.Role,roleName,ClaimValueTypes.String));
-                //}
-                
+                foreach(var userRole in user.UserRoles)
+                {
+                    var roleName = userRole.Role.Name;
+                    identity.AddClaim(new Claim(ClaimTypes.Role,roleName,ClaimValueTypes.String));
+                }
+
                 var ticket = new AuthenticationTicket(identity,CreateProperties(username));
                 ticket.Properties.IssuedUtc = DateTime.UtcNow;
                 ticket.Properties.ExpiresUtc = DateTime.UtcNow.Add(TimeSpan.FromDays(1));
 
                 var token = Startup.OAuthBearerOptions.AccessTokenFormat.Protect(ticket);
                 result.Token = token;
-                result.Permissions = permissions.Datas;
+                result.Permissions = permissions.ToList();
                 result.Status = 0;
             }
             return result;

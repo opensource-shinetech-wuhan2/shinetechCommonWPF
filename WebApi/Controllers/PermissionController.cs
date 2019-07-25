@@ -23,10 +23,12 @@ namespace WebApi.Controllers
 
         [HttpGet, HttpPost]
         [Route("GetUserPermissions")]
-        [TokenAuthorize("CanViewPermission")]
         public async Task<MulitViewResult<PermissionModel>> GetUserPermissions (int userId)
         {
-            var result = await _permissionBusiness.GetUserPermissions(userId);
+            var result = new MulitViewResult<PermissionModel>();
+            var data = await _permissionBusiness.GetUserPermissions(userId);
+            result.Datas = data.ToList();
+            result.AllCount = data.Count();
             return result;
         }
     }

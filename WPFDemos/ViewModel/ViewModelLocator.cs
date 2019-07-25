@@ -13,7 +13,10 @@
 */
 
 using System.Windows;
+using Autofac;
+using Autofac.Extras.CommonServiceLocator;
 using CommonServiceLocator;
+using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 using WPFDemos.ViewModel.Demo;
 using WPFDemos.Views.Demo;
@@ -30,22 +33,23 @@ namespace WPFDemos.ViewModel
         /// Initializes a new instance of the ViewModelLocator class.
         /// </summary>
         public ViewModelLocator()
-        {
-            ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
-            
-            SimpleIoc.Default.Register<MainViewModel>();
-            SimpleIoc.Default.Register<DemoViewModel>();
-            SimpleIoc.Default.Register<SwitchDataContextViewModel>();
-            SimpleIoc.Default.Register<DataTemplateViewModel>();
-            SimpleIoc.Default.Register<ControlTemplateViewModel>();
-            SimpleIoc.Default.Register<ConverterViewModel>();
-            SimpleIoc.Default.Register<ResourceViewModel>();
-            SimpleIoc.Default.Register<BindingViewModel>();
-            SimpleIoc.Default.Register<CustomControlViewModel>();
-            SimpleIoc.Default.Register<TreeViewViewModel>();
-            SimpleIoc.Default.Register<ValidationViewModel>();
-            SimpleIoc.Default.Register<PdfViewerViewModel>();
-            SimpleIoc.Default.Register<PluginImportViewModel>();
+        {        
+            //ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
+
+            //SimpleIoc.Default.Register<MainViewModel>();
+            //SimpleIoc.Default.Register<DemoViewModel>();
+            //SimpleIoc.Default.Register<SwitchDataContextViewModel>();
+            //SimpleIoc.Default.Register<DataTemplateViewModel>();
+            //SimpleIoc.Default.Register<ControlTemplateViewModel>();
+            //SimpleIoc.Default.Register<ConverterViewModel>();
+            //SimpleIoc.Default.Register<ResourceViewModel>();
+            //SimpleIoc.Default.Register<BindingViewModel>();
+            //SimpleIoc.Default.Register<CustomControlViewModel>();
+            //SimpleIoc.Default.Register<TreeViewViewModel>();
+            //SimpleIoc.Default.Register<ValidationViewModel>();
+            //SimpleIoc.Default.Register<PdfViewerViewModel>();
+            //SimpleIoc.Default.Register<PluginImportViewModel>();
+            //SimpleIoc.Default.Register<PermissionViewModel>();
         }
 
         public MainViewModel Main
@@ -60,6 +64,7 @@ namespace WPFDemos.ViewModel
         {
             get
             {
+                var ins = ServiceLocator.Current.GetInstance(typeof(DemoViewModel));
                 return ServiceLocator.Current.GetInstance<DemoViewModel>();
             }
         }
@@ -149,6 +154,14 @@ namespace WPFDemos.ViewModel
             get
             {
                 return ServiceLocator.Current.GetInstance<PluginImportViewModel>();
+            }
+        }
+
+        public PermissionViewModel PermissionView
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<PermissionViewModel>();
             }
         }
 

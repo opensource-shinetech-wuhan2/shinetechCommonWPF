@@ -11,7 +11,8 @@ using WPFDemos.Views.Demo;
 
 namespace WPFDemos.ViewModel.Demo
 {
-    public class DemoViewModel :ViewModelBase
+    public interface IDemoViewModel { }
+    public class DemoViewModel :ViewModelBase, IDemoViewModel
     {
         public RelayCommand SwitchDataContextCommand { get; set; }
         public RelayCommand DataTemplateCommand { get; set; }
@@ -25,6 +26,9 @@ namespace WPFDemos.ViewModel.Demo
         public RelayCommand PdfViewerCommand { get; set; }
 
         public RelayCommand PluginImportCommand { get; set; }
+
+        public RelayCommand PermissionCommand { get; set; }
+
         public DemoViewModel ()
         {
             SwitchDataContextCommand = new RelayCommand(ShowSwitchDataContextWindow);
@@ -38,6 +42,7 @@ namespace WPFDemos.ViewModel.Demo
             ValidationCommand = new RelayCommand(ShowValidationWindow);
             PdfViewerCommand = new RelayCommand(ShowPdfViewerWindow);
             PluginImportCommand = new RelayCommand(ShowPluginImportWindow);
+            PermissionCommand = new RelayCommand(ShowPermissionWindow);
         }
 
         public void ShowSwitchDataContextWindow ()
@@ -93,6 +98,11 @@ namespace WPFDemos.ViewModel.Demo
         public void ShowPluginImportWindow ()
         {
             WindowManager.ShowWindow(typeof(PluginImportView));
+        }
+
+        public void ShowPermissionWindow ()
+        {
+            WindowManager.ShowWindow(typeof(PermissionView));
         }
     }
 }

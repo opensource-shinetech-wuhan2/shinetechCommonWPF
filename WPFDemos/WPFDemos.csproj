@@ -50,6 +50,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac, Version=4.9.3.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.4.9.3\lib\net45\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac.Extras.CommonServiceLocator, Version=5.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.Extras.CommonServiceLocator.5.0.0\lib\net45\Autofac.Extras.CommonServiceLocator.dll</HintPath>
+    </Reference>
     <Reference Include="AutoMapper, Version=8.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <HintPath>..\packages\AutoMapper.8.1.1\lib\net461\AutoMapper.dll</HintPath>
     </Reference>
@@ -80,9 +86,6 @@
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="Ninject, Version=3.3.4.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
-      <HintPath>..\packages\Ninject.3.3.4\lib\net45\Ninject.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -110,7 +113,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AppBootstrapper.cs" />
     <Compile Include="Common\MessageManager.cs" />
+    <Compile Include="Common\PermissionManager.cs" />
     <Compile Include="Common\WindowManager.cs" />
     <Compile Include="Converters\ColorToBrushConverter.cs" />
     <Compile Include="Converters\MultiColorConverter.cs" />
@@ -147,6 +152,7 @@
     <Compile Include="ViewModel\Demo\ConverterViewModelcs.cs" />
     <Compile Include="ViewModel\Demo\CustomControlViewModel.cs" />
     <Compile Include="ViewModel\Demo\PdfViewerViewModel.cs" />
+    <Compile Include="ViewModel\Demo\PermissionViewModel.cs" />
     <Compile Include="ViewModel\Demo\PluginImportViewModel.cs" />
     <Compile Include="ViewModel\Demo\TreeViewViewModel.cs" />
     <Compile Include="ViewModel\Demo\ValidationViewModel.cs" />
@@ -177,6 +183,9 @@
     <Compile Include="Views\Demo\PdfViewerView.xaml.cs">
       <DependentUpon>PdfViewerView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Demo\PermissionView.xaml.cs">
+      <DependentUpon>PermissionView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Demo\PluginImportView.xaml.cs">
       <DependentUpon>PluginImportView.xaml</DependentUpon>
     </Compile>
@@ -192,7 +201,6 @@
     <Compile Include="Views\Demo\ValidationView.xaml.cs">
       <DependentUpon>ValidationView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ViewLocator.cs" />
     <Page Include="CustomControl\Pager\ImageButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -270,6 +278,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Demo\PdfViewerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Demo\PermissionView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

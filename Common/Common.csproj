@@ -83,21 +83,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BearerToken\AuthenticationProperties.cs" />
-    <Compile Include="BearerToken\AuthenticationTicket.cs" />
-    <Compile Include="BearerToken\Base64TextEncoder.cs" />
-    <Compile Include="BearerToken\Base64UrlTextEncoder.cs" />
-    <Compile Include="BearerToken\BootstrapContext.cs" />
-    <Compile Include="BearerToken\DataProtector.cs" />
-    <Compile Include="BearerToken\DpapiDataProtector.cs" />
-    <Compile Include="BearerToken\MachineKeyDataProtector.cs" />
-    <Compile Include="BearerToken\PropertiesSerializer.cs" />
-    <Compile Include="BearerToken\SecureDataFormat.cs" />
-    <Compile Include="BearerToken\TicketSerializer.cs" />
     <Compile Include="Extensions\DatetimeExtension.cs" />
     <Compile Include="Extensions\StringExtension.cs" />
     <Compile Include="Http\HttpUtility.cs" />
     <Compile Include="Http\RequestResult.cs" />
+    <Compile Include="Http\RequestResultExtension.cs" />
     <Compile Include="Plugin\CustomExportMetaData.cs" />
     <Compile Include="Plugin\IMetaData.cs" />
     <Compile Include="Plugin\PluginManager.cs" />

@@ -22,16 +22,20 @@ namespace Business
             _permissionAgent = new PermissionAgent();
         }
 
-        public async Task<MulitViewResult<PermissionModel>> GetUserPermissions (int userId)
+        public async Task<IEnumerable<PermissionModel>> GetUserPermissions (int userId)
         {
-            var result = new MulitViewResult<PermissionModel>();
-
             var permissions = await _permissionAgent.GetUserPermissions(userId);
             var permissionList = _mapper.Map<List<PermissionModel>>(permissions);
-            result.Datas = permissionList;
-            result.AllCount = permissionList.Count;
 
-            return result;         
+            return permissionList;         
+        }
+
+        public IEnumerable<PermissionModel> GetUserPermissions (string userName)
+        {
+            var permissions = _permissionAgent.GetUserPermissions(userName);
+            var permissionList = _mapper.Map<List<PermissionModel>>(permissions);
+       
+            return permissionList;
         }
     }
 }

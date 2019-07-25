@@ -154,7 +154,7 @@
     <Compile Include="App_Start\JsonConfig.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Auth\CustomAuthorizeAttribute.cs" />
+    <Compile Include="Auth\TokenAuthorizeAttribute.cs" />
     <Compile Include="Common\MapperFactory.cs" />
     <Compile Include="Controllers\PermissionController.cs" />
     <Compile Include="Controllers\UserController.cs" />

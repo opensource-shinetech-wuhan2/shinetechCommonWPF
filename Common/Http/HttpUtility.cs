@@ -6,14 +6,15 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace Common.Http
 {
     public class HttpUtility
     {
-        public static RequestResult Request (string url,string jsonstr,string token,string type="POST")
+        public static RequestResult<T> Request<T> (string url,string jsonstr,string token,string type="POST")
         {
-            RequestResult result = new RequestResult();
+            RequestResult<T> result = new RequestResult<T>();
             HttpWebResponse response;
             try
             {
@@ -42,7 +43,8 @@ namespace Common.Http
             var rs = response.GetResponseStream();
             using(StreamReader reader = new StreamReader(rs,Encoding.UTF8))
             {
-                result.Data = reader.ReadToEnd();               
+                var ret = reader.ReadToEnd();
+                result.Data = JsonConvert.DeserializeObject<T>(ret);
                 return result;
             }
         }

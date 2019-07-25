@@ -9,6 +9,8 @@ namespace Business.IBusiness
 {
     public interface IPermissionBusiness
     {
-        Task<MulitViewResult<PermissionModel>> GetUserPermissions (int userId);
+        Task<IEnumerable<PermissionModel>> GetUserPermissions (int userId);
+
+        IEnumerable<PermissionModel> GetUserPermissions (string userName);
     }
 }

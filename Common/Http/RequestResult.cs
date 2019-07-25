@@ -6,9 +6,14 @@ using System.Threading.Tasks;
 
 namespace Common.Http
 {
-    public class RequestResult
+    public class RequestResult<T>
     {
-        public string Data { get; set; }
+        public T Data { get; set; }
         public int StatusCode { get; set; }
+
+        public bool HasError ()
+        {
+            return StatusCode != 200;
+        }
     }
 }

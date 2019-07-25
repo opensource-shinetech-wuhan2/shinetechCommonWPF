@@ -4,12 +4,22 @@
              >
     <Application.Resources>
         <ResourceDictionary>
-            <vm:ViewModelLocator x:Key="Locator" d:IsDataSource="True" xmlns:vm="clr-namespace:WPFDemos.ViewModel" />
+            <!--<local:AppBootstrapper x:Key="bootstrapper" /> 
+            <vm:ViewModelLocator x:Key="Locator" d:IsDataSource="True" xmlns:vm="clr-namespace:WPFDemos.ViewModel" />-->
                        
             <ResourceDictionary.MergedDictionaries>
+
                 <ResourceDictionary>
-                    <v:ViewLocator x:Key="viewLocator" />
+                    <local:AppBootstrapper x:Key="bootstrapper" />
                 </ResourceDictionary>
+
+                <ResourceDictionary>
+                    <vm:ViewModelLocator x:Key="Locator" d:IsDataSource="True" xmlns:vm="clr-namespace:WPFDemos.ViewModel"/>
+                </ResourceDictionary>
+                
+                <!--<ResourceDictionary>
+                    <v:ViewLocator x:Key="viewLocator" />
+                </ResourceDictionary>-->
 
                 <ResourceDictionary Source="Style/CustomControlStyle.xaml" />
                 <ResourceDictionary Source="CustomControl/Pager/PagerStyle.xaml" />

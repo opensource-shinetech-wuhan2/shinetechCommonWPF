@@ -21,7 +21,7 @@ namespace WPFDemos.Common
 
         public static void ShowWindowHandler (ShowWindowMessage msg)
         {
-            Window view = ServiceLocator.Current.GetInstance(msg.WindowType,Guid.NewGuid().ToString()) as Window;
+            Window view = ServiceLocator.Current.GetInstance(msg.WindowType) as Window;
             view.ShowDialog();            
         }
     }

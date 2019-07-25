@@ -20,19 +20,13 @@ namespace WPFDemos.Service
             return ApiBaseUrl + path;
         }
 
-        protected virtual T Request<T> (string url,object para,string type = "POST")
+        protected virtual RequestResult<T> Request<T>(string url,object para,string type = "POST")
         {
             var jsonPara = JsonConvert.SerializeObject(para);
             var accessToken = "Bearer " + Properties.Settings.Default.Token;
-            var requestResult = HttpUtility.Request(url,jsonPara,accessToken,type);
+            var requestResult = HttpUtility.Request<T>(url,jsonPara,accessToken,type);
 
-            if(requestResult.StatusCode != 200)//error
-            {
-                WindowManager.ShowErrorWindow(requestResult.StatusCode);
-                return default(T);
-            }
-
-            return JsonConvert.DeserializeObject<T>(requestResult.Data);
+            return requestResult;
         }
     }
 }

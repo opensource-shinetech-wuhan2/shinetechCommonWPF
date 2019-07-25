@@ -24,7 +24,10 @@ namespace Data.Access
         {
             using(var context = new TestEntities())
             {
-                var user = context.Users.Include(u => u.UserRoles).FirstOrDefault(u => u.UserName == userName);
+                var user = context.Users
+                    .Include(u => u.UserRoles)
+                    .Include(u => u.UserRoles.Select(ur=>ur.Role))
+                    .FirstOrDefault(u => u.UserName == userName);
                 return user;
             }
         }

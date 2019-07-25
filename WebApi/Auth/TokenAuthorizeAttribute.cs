@@ -8,8 +8,10 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Http.Controllers;
 using Business.Model;
-using Common.BearerToken;
 using Newtonsoft.Json;
+using System.Security.Claims;
+using Business.IBusiness;
+using Unity.Attributes;
 
 namespace WebApi.Auth
 {
@@ -26,21 +28,38 @@ namespace WebApi.Auth
 
         public override void OnAuthorization (HttpActionContext actionContext)
         {
-            var content = actionContext.Request.Properties["MS_HttpContext"] as HttpContextBase;
-            var token = content.Request.Headers["Authorization"];
+            var context = actionContext.Request.Properties["MS_HttpContext"] as HttpContextBase;
+            var token = context.Request.Headers["Authorization"];
             if(!string.IsNullOrEmpty(token))
             {
-                var desToken = DataProtector.Create().Unprotect(token.Remove(0,7));//bearer (token)
-                string userName;
-                desToken.Properties.Dictionary.TryGetValue("userName",out userName);
+                string userName = string.Empty;
+                ClaimsIdentity identity = context.User.Identity as ClaimsIdentity;
+                var claim = identity.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role);
+                if(claim != null)
+                {
+                    userName = claim.Value;
+                }
+
                 if(!string.IsNullOrEmpty(userName))
                 {
-                    //TODO: get permissions from permission dictionary
-                    string[] userPermissions = { "canViewMenu" };
+                    //TODO: get user permissions
+                    var permissionBusiness =  GlobalConfiguration.Configuration.DependencyResolver.GetService(typeof(IPermissionBusiness)) as IPermissionBusiness;
+                    var userPermissionResult = permissionBusiness.GetUserPermissions(userName);
+                    List<string> userPermissions = new List<string>();
+                    foreach(var permission in userPermissionResult)
+                    {
+                        userPermissions.Add(permission.Name);
+                    }
+
                     var intersect = userPermissions.Intersect(Permissions);
-                    if(intersect.Count() > 0)
+                    var authorized = RequireAllPermissions ? (intersect.Count() == Permissions.Count()) : intersect.Count() > 0;
+                    if(authorized)
                     {
                         base.IsAuthorized(actionContext);
+                    }
+                    else
+                    {
+                        HandleUnauthorizedRequest(actionContext);
                     }
                 }
                 else
